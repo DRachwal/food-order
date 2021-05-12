@@ -1,6 +1,8 @@
 import { useState } from 'react';
 
-const styles = './AvailableMeals.module.css';
+import Card from '../UI/Card/Card';
+
+import styles from './AvailableMeals.module.css';
 
 const DUMMY_MEALS = [
     {
@@ -34,9 +36,11 @@ const AvailableMeals = () => {
     const mealsList = meals.map(meal => <li key={meal.id}>{meal.name}</li>);
 
     return <section className={styles.meals}>
-        <ul>
-            {mealsList}
-        </ul>
+        <Card>
+            <ul>
+                {mealsList}
+            </ul>
+        </Card>
     </section>
 }
 
