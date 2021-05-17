@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import Card from '../UI/Card/Card';
+import MealItem from './MealItem/MealItem';
 
 import styles from './AvailableMeals.module.css';
 
@@ -33,7 +34,12 @@ const DUMMY_MEALS = [
 
 const AvailableMeals = () => {
     const [meals, setMeals] = useState(DUMMY_MEALS);
-    const mealsList = meals.map(meal => <li key={meal.id}>{meal.name}</li>);
+    const mealsList = meals.map(meal => <MealItem
+        key={meal.id}
+        name={meal.name}
+        description={meal.description}
+        price={meal.price}
+    />);
 
     return <section className={styles.meals}>
         <Card>
