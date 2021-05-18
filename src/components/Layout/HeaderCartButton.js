@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
 
 import CartIcon from '../Cart/CartIcon';
 import CartContext from '../../store/cart-context';
@@ -6,12 +6,33 @@ import CartContext from '../../store/cart-context';
 import styles from './HeaderCartButton.module.css';
 
 const HeaderCartButton = props => {
+    const [buttonBump, setButtonBump] = useState(false);
+
     const cartContext = useContext(CartContext);
-    console.log(cartContext.items);
-    const numberOfCartItems = cartContext.items.reduce((currentValue, item) => currentValue + item.amount, 0);
+    const { items } = cartContext;
+
+    const numberOfCartItems = items.reduce((currentValue, item) => currentValue + item.amount, 0);
+
+    const buttonClassName = `${styles.button} ${buttonBump ? styles.bump : ''}`;
+
+    useEffect(() => {
+        if(items.length === 0)
+            return;
+
+        setButtonBump(true);
+
+        const timeout = setTimeout(() => {
+            setButtonBump(false);
+        }, 300);
+
+        return () => { // useEffect cleanup function
+            clearTimeout(timeout);
+        }
+
+    }, [items])
 
     return (
-        <button className={styles.button} onClick={props.onClick}>
+        <button className={buttonClassName} onClick={props.onClick}>
             <span className={styles.icon}>
                 <CartIcon />
             </span>
