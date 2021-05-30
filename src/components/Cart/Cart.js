@@ -41,11 +41,10 @@ const Cart = props => {
         .then(data => {
             setIsLoading(false);
             setDidSubmit(true);
-            console.log('data', data);
+            cartContext.clearCart();
         })
         .catch(error => {
             setIsLoading(false);
-            console.log('error.message', error.message);
         })
     }
 
@@ -74,7 +73,7 @@ const Cart = props => {
         </Fragment>
 
     const cartModalContent = <Fragment>
-        {cartItems}
+            {cartItems}
             <div className={styles.total}>
                 <span>Total amount</span>
                 <span>{totalAmount}</span>
